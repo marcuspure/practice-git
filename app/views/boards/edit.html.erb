@@ -1,0 +1,6 @@
+<h1>編輯看板</h1>
+<%= form_for(@board) do |f| %>
+<%= f.label :tittle, '看板標題' %>
+<%= f.text_field :tittle %>
+<%= f.submit %>
+<% end %>
