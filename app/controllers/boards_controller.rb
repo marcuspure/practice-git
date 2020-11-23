@@ -1,5 +1,5 @@
 class BoardsController < ApplicationController
- before_action :find_board, only[:show, :edit,update, :delete]
+ before_action :find_board, only: [:show, :edit,:update, :delete]
 
 def index
     @boards = Board.all
@@ -11,8 +11,8 @@ def new
 end
 
 def create
-    clean_params = params.require(:board).permit(:tittle) 
-    @board = Board.new(clean_params)
+    # clean_params = params.require(:board).permit(:tittle) 
+    @board = Board.new(board_params)
     
         if @board.save
         redirect_to "/boards", notice: '成功新增看板'
@@ -23,6 +23,9 @@ end
 
 def show
     # @board = Board.find(params[:id])
+
+    # @posts = Post.where(board: @board)
+    @posts = @board.posts.order(id: :desc)
 end
 
 def edit #編輯
@@ -31,9 +34,9 @@ end
 
 def update
     # @board = Board.find(params[:id])
-    clean_params = params.require(:board).permit(:tittle) 
+    # clean_params = params.require(:board).permit(:tittle) 
     
-    if @board.update(clean_params)
+    if @board.update(board_params)
 
     redirect_to root_path, notice: '更新成功'
     else
@@ -53,5 +56,9 @@ def find_board
     @board = Board.find(params[:id])
 end
 
+def board_params
+    params.require(:board).permit(:tittle) 
+
+end
 
 end

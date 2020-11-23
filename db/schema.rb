@@ -10,12 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_22_024644) do
+ActiveRecord::Schema.define(version: 2020_11_23_063939) do
 
   create_table "boards", force: :cascade do |t|
     t.string "tittle"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string "tittle"
+    t.text "content"
+    t.integer "board_id_id", null: false
+    t.integer "user_id_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["board_id_id"], name: "index_posts_on_board_id_id"
+    t.index ["user_id_id"], name: "index_posts_on_user_id_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -29,4 +40,6 @@ ActiveRecord::Schema.define(version: 2020_11_22_024644) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "posts", "board_ids"
+  add_foreign_key "posts", "user_ids"
 end

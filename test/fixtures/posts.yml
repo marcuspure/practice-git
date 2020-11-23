@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tittle: MyString
+  content: MyText
+  board_id: one
+  user_id: one
+
+two:
+  tittle: MyString
+  content: MyText
+  board_id: two
+  user_id: two
