@@ -25,7 +25,7 @@ before_action :set_post, only: [:show]
         render :new
     end
     
-end
+    end
 
 def show
 #  @post = Post.find(params[:id])
@@ -43,6 +43,7 @@ def update
       redirect_to @post, notice: '文章更新成功'
     else
       render :edit
+    end
 end
 
 
@@ -53,11 +54,11 @@ def set_board
 end
 
 
-def post_params
-params.require(:post).permit(:tittle, :content)
-end
+    def post_params
+    params.require(:post).permit(:tittle, :content)
+    end
 
-def set_post
+    def set_post
     @post = Post.find(params[:id])
   end
 end

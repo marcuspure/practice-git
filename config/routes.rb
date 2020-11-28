@@ -19,6 +19,7 @@ end
 
 
 resources :boards do
+  
   resources :posts, shallow: true
   end
 end
