@@ -5,7 +5,7 @@ before_action :set_post, only: [:show]
 
     def new
         @post = Post.new
-        @board = Board.find(params[:board_id])
+        # @board = Board.find(params[:board_id])
     end
 
 
@@ -17,26 +17,26 @@ before_action :set_post, only: [:show]
     @post = current_user.posts.new(post_params)
     @post.board = @board
 
-
     if @post.save
-
          redirect_to @board, notice: '新增文章成功'
     else
         render :new
-    end
+        end
     
     end
 
-def show
-#  @post = Post.find(params[:id])
-end
+    def show
+    #  @post = Post.find(params[:id])
+        @comment = Comment.new
+        @comments = @post.comments.where(deleted_at: nil).order(id: :desc).includes(:user)
+    end
 
-def edit
+    def edit
     # @post = Post.find_by!(id: params[:id], user: current_user)
     @post = current_user.posts.find(params[:id])
-end
+    end 
 
-def update
+    def update
     @post = current_user.posts.find(params[:id])
 
     if @post.update(post_params)
@@ -44,14 +44,16 @@ def update
     else
       render :edit
     end
-end
+    end
 
+    def favorite
+      render html: '1'
+    end
 
-
-private
-def set_board
+    private
+    def set_board
     @board = Board.find(params[:board_id])
-end
+    end
 
 
     def post_params
@@ -60,5 +62,7 @@ end
 
     def set_post
     @post = Post.find(params[:id])
-  end
+
+    end
+
 end

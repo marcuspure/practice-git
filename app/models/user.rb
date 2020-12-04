@@ -8,8 +8,11 @@ class User < ApplicationRecord
     validates :nickname, presence: true
     
     before_create :encrypt_password
+    
     has_many :posts
-
+    has_many :comments
+    has_many :favorite_posts
+    has_many :favorite_posts, through: :favorite_posts
 
     def self.login(user)
       pw = Digest::SHA1.hexdigest("a#{user[:password]}z")
