@@ -47,7 +47,17 @@ before_action :set_post, only: [:show]
     end
 
     def favorite
-      render html: '1'
+      post = Post.find(params[:id])
+
+      if current_user.favorite?(post)
+
+        current_user.my_posts.destroy(post)
+        render json: { status: 'removed' }
+      else
+
+        current_user.my_posts << post
+        render json: { status: 'added' }
+      end
     end
 
     private

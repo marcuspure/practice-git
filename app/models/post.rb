@@ -4,7 +4,7 @@ class Post < ApplicationRecord
   has_many :comments
 
   has_many :favorite_posts
-  has_many :users, through: :favorite_posts
+  has_many :favorite_users, through: :favorite_posts, source: 'user'
 
   validates :tittle, presence: true
   validates :content, presence: true

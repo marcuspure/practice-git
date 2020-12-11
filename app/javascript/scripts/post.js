@@ -11,18 +11,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
       const postId = e.currentTarget.dataset.id
       const icon = e.target
-      
+
       ax.post(`/posts/${postId}/favorite`, {})
         .then(function(resp){
-          if (resp.data == "1") {
+          if (resp.data.status  == "added") {
             icon.classList.remove("far")
             icon.classList.add("fas")
           } else {
             icon.classList.remove("fas")
             icon.classList.add("far")
           }
-          console.log(resp.data);
-          
         })
         .catch(function(err) {
           console.log(err);
